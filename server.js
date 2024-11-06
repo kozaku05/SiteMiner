@@ -3,7 +3,7 @@ const fs = require("fs");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const port = 80;
+const port = 8080;
 
 const server = http.createServer((req, res) => {
   if (req.method === "GET") {
