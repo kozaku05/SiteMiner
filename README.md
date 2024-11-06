@@ -28,5 +28,5 @@
 
 ## コピーライト
 © 2024 kozaku05. All rights reserved.  
-Discord: [@kozaku05](https://discord.com/users/kozaku05)  
+Discord: [@kozaku05](https://discord.com/users/962165673742717014)  
 My Discord Server: [how to programに参加する](https://discord.gg/tfyqW3CNZh)
