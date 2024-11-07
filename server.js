@@ -1,8 +1,6 @@
 const http = require("http");
 const fs = require("fs");
-const axios = require("axios");
-const cheerio = require("cheerio");
-
+const miner = require("./miner");
 const port = 8080;
 
 const server = http.createServer((req, res) => {
@@ -23,39 +21,10 @@ const server = http.createServer((req, res) => {
     req.on("data", (chunk) => {
       body += chunk.toString();
     });
-    req.on("end", () => {
-      async function get() {
-        let img = [];
-        try {
-          const response = await axios.get(body);
-          let $ = cheerio.load(response.data);
-          $("img").each((index, element) => {
-            let src = $(element).attr("src");
-            if (src) {
-              if (src.startsWith("http")) {
-                img.push(src);
-              } else {
-                img.push(body + src);
-              }
-            }
-          });
-          return img;
-        } catch (err) {
-          console.log(err);
-          return img;
-        }
-      }
-      async function plus() {
-        let getData = await get();
-        if (getData.length === 0) {
-          console.log("データがありませんでした");
-          res.end(JSON.stringify(getData));
-        } else {
-          console.log("画像URL", getData);
-          res.end(JSON.stringify(getData));
-        }
-      }
-      plus();
+    req.on("end",async () => {
+      let result = await miner(body);
+      console.log(result);
+      res.end(JSON.stringify(result));
     });
   }
 });

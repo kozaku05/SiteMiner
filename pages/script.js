@@ -29,7 +29,7 @@ function submit() {
         console.log(data);
         for (let i = 0; i < data.length; i++) {
           let img = document.createElement("img");
-          img.src = data[i];
+          img.src = (data[i]).startsWith("http")?data[i]:(url.endsWith('/')?url.slice(0,-1)+data[i]:url+data[i]);
           getImg.appendChild(img);
           button.style.display = "block";
         }
