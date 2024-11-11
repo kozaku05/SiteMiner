@@ -21,8 +21,9 @@ const server = http.createServer((req, res) => {
     req.on("data", (chunk) => {
       body += chunk.toString();
     });
-    req.on("end",async () => {
+    req.on("end", async () => {
       let result = await miner(body);
+      console.log(body);
       console.log(result);
       res.end(JSON.stringify(result));
     });
