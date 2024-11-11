@@ -1,13 +1,13 @@
 const target = window.location.href;
 let getImg = document.getElementById("getImg");
 let button = document.querySelector("button");
+
 function submit() {
-   
   button.style.display = "none";
   getImg.innerHTML = "";
   let url = document.getElementById("url").value;
   if (!/^https?:\/\//i.test(url)) {
-    url = 'https://' + url;
+    url = "https://" + url;
   }
   if (url) {
     fetch(target, {
@@ -29,7 +29,9 @@ function submit() {
         console.log(data);
         for (let i = 0; i < data.length; i++) {
           let img = document.createElement("img");
-          img.src = (data[i]).startsWith("http")?data[i]:(url.endsWith('/')?url.slice(0,-1)+data[i]:url+data[i]);
+          const originUrl = new URL(url).origin;
+          console.log(originUrl + data[i]);
+          img.src = originUrl + "/" + data[i];
           getImg.appendChild(img);
           button.style.display = "block";
         }
@@ -46,3 +48,8 @@ function submit() {
       });
   }
 }
+document.getElementById("url").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    submit();
+  }
+});
